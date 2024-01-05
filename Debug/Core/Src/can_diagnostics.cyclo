@@ -1,0 +1,6 @@
+../Core/Src/can_diagnostics.c:45:6:CAN_Init_Diag_Messages	1
+../Core/Src/can_diagnostics.c:89:6:CAN_RxCheckMsgPendingCallback	6
+../Core/Src/can_diagnostics.c:126:9:CAN_Diag_Not_Idle	2
+../Core/Src/can_diagnostics.c:136:6:CAN_Diag_Decode_Request	1
+../Core/Src/can_diagnostics.c:150:6:CAN_Diag_Generate_Reply	21
+../Core/Src/can_diagnostics.c:378:6:doJumpToApplication	2

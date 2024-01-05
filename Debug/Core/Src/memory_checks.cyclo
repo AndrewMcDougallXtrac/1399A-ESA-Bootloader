@@ -1,0 +1,6 @@
+../Core/Src/memory_checks.c:18:6:Set_CRC_Instance	1
+../Core/Src/memory_checks.c:22:6:Set_CRC_Start_Address	1
+../Core/Src/memory_checks.c:26:6:Set_CRC_End_Address	1
+../Core/Src/memory_checks.c:30:6:Start_CRC_Calculation	1
+../Core/Src/memory_checks.c:37:22:Report_CRC_Progress	1
+../Core/Src/memory_checks.c:43:10:Report_CRC_Result_Value	1

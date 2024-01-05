@@ -1,0 +1,6 @@
+../Core/Src/led_driver.c:24:6:Set_Green_Led_On_Off	2
+../Core/Src/led_driver.c:38:6:Set_Red_Led_On_Off	2
+../Core/Src/led_driver.c:52:6:Request_Green_Led_State	1
+../Core/Src/led_driver.c:56:6:Request_Red_Led_State	1
+../Core/Src/led_driver.c:60:6:Update_Green_Led_State	3
+../Core/Src/led_driver.c:84:6:Update_Red_Led_State	4

@@ -1,0 +1,2 @@
+../Core/Src/flash_functions.c:12:6:erase_flash_sector	48	static
+../Core/Src/flash_functions.c:56:6:program_flash_double_word	24	static
