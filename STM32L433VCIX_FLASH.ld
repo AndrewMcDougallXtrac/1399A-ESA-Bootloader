@@ -87,6 +87,7 @@ SECTIONS
     KEEP(*(.softwareVersionSection)) 	/* keep variable even if not referenced */
   }  /* placing code present marker at end of usable flash section at given address: */
   /* this is in the last wordline to be programmed so ensures program is present if it is there */
+  
   .codePresent 0x08003ff8 :
   {
     KEEP(*(.codePresentSection)) /* keep my variable even if not referenced */
@@ -97,6 +98,8 @@ SECTIONS
   {
     KEEP(*(.flashChecksumSection)) /* keep my variable even if not referenced */
   }
+  
+  
 
   /* Constant data into "FLASH" Rom type memory */
   .rodata :
@@ -158,6 +161,7 @@ SECTIONS
   {
     . = ALIGN(4);
     _sdata = .;        /* create a global symbol at data start */
+    *(.crcHandleStorageSection) /* locate the crc handle at lowest SRAM region to allow RAM test */
     *(.data)           /* .data sections */
     *(.data*)          /* .data* sections */
     *(.RamFunc)        /* .RamFunc sections */

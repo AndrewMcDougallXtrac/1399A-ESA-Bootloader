@@ -43,10 +43,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+CRC_HandleTypeDef hcrc __attribute__((section (".crcHandleStorageSection")));
 CAN_HandleTypeDef hcan1;
-
-CRC_HandleTypeDef hcrc;
-
 TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
@@ -123,18 +121,43 @@ typedef void (*pFunction)(void);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   HAL_TIM_Base_Start(&htim6);
-  __HAL_TIM_SET_COUNTER(&htim6,0);  // set the counter value a 0
+  __HAL_TIM_SET_COUNTER(&htim6,0);  // set the counter value to 0
+
   if(runApplication) {
-  	//code is present so we can run it
-  	pFunction Jump_To_Application;
-  	uint32_t JumpAddress;
-  	// Jump to user application
-  	JumpAddress = *(__IO uint32_t*) (ADDR_FLASH_APPLICATION_START + 4);
-  	Jump_To_Application = (pFunction) JumpAddress;
-  	 //Initialize user application's Stack Pointer
-  	__set_MSP(*(__IO uint32_t*) ADDR_FLASH_APPLICATION_START);
-  	Jump_To_Application();
+  	//code is present so we can run run the application if OK
+	//check SRAM is OK before running the application
+
+	if(Do_Sram_Pattern_Test(&hcrc) == SRAM_TEST_RESULT_PASS) {
+		//SRAM test passed so check flash image CRC
+		//Do flash CRC test...
+		Set_CRC_Instance(&hcrc);
+		Set_CRC_Start_Address((uint32_t) ADDR_FLASH_APPLICATION_CODE_START);
+		Set_CRC_End_Address((uint32_t) ADDR_FLASH_APPLICATION_CODE_END);
+		Start_CRC_Calculation ();
+		uint32_t *expectedCrcMemPtr;
+		expectedCrcMemPtr = (uint32_t*)FLASH_CHECKSUM_MARKER_ADDR;
+		uint32_t calcChecksum = Report_CRC_Result_Value();
+		uint32_t storedChecksum = *expectedCrcMemPtr;
+
+		if(storedChecksum == 0xFFFFFFFF) {
+			//flash is erased but App is valid due to debugger connected
+			//so OK to run anyway
+			storedChecksum = calcChecksum;
+		}
+		if(storedChecksum == calcChecksum) {
+			//flash CRC is correct, so OK to run it
+			pFunction Jump_To_Application;
+			uint32_t JumpAddress;
+			// Jump to user application
+			JumpAddress = *(__IO uint32_t*) (ADDR_FLASH_APPLICATION_START + 4);
+			Jump_To_Application = (pFunction) JumpAddress;
+			 //Initialize user application's Stack Pointer
+			__set_MSP(*(__IO uint32_t*) ADDR_FLASH_APPLICATION_START);
+			Jump_To_Application(); //does not return
+		}
+	}
   }
+  //we are here due to flash checksum failure or SRAM test fail or no flash programmed
   while (1)
   {
     /* USER CODE END WHILE */
