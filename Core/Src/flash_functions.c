@@ -19,7 +19,7 @@ void erase_flash_sector(uint8_t sector_number) {
 	//one sector is 32 pages
 	//flash offset is 0x08008000 for application, so sectors start there
 	//each block is 256 pages of 2kb
-	//sector 3 is used for fault memory
+	//sector 3 is used for fault memory and app calibration
 
 	switch(sector_number) {
 	case 0:
