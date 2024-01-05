@@ -139,11 +139,11 @@ typedef void (*pFunction)(void);
 		uint32_t calcChecksum = Report_CRC_Result_Value();
 		uint32_t storedChecksum = *expectedCrcMemPtr;
 
-		if(storedChecksum == 0xFFFFFFFF) {
-			//flash is erased but App is valid due to debugger connected
-			//so OK to run anyway
-			storedChecksum = calcChecksum;
-		}
+//		if(storedChecksum == 0xFFFFFFFF) {
+//			//flash is erased but App is valid due to debugger connected
+//			//so OK to run anyway
+//			storedChecksum = calcChecksum;
+//		}
 		if(storedChecksum == calcChecksum) {
 			//flash CRC is correct, so OK to run it
 			pFunction Jump_To_Application;
