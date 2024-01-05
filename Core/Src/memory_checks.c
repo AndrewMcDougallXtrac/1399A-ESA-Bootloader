@@ -102,6 +102,7 @@ void Start_CRC_Calculation (void) {
 	uint32_t crc_length   = crc_end_address - crc_start_address;
 	crc_length = crc_length / 4; // range is defined in bytes, but length is define in 32bit words
 	//init crc peripheral input register
+	current_hcrc->Instance->DR = CRC_TEST_SEED;
 	current_hcrc->Instance->INIT = CRC_TEST_SEED;
 	crc_result = HAL_CRC_Calculate(current_hcrc, (uint32_t*)crc_start_address, crc_length);
 }

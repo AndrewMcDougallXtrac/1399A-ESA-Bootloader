@@ -3,5 +3,5 @@
 ../Core/Src/memory_checks.c:92:6:Set_CRC_Start_Address	1
 ../Core/Src/memory_checks.c:96:6:Set_CRC_End_Address	1
 ../Core/Src/memory_checks.c:100:6:Start_CRC_Calculation	1
-../Core/Src/memory_checks.c:109:22:Report_CRC_Progress	1
-../Core/Src/memory_checks.c:115:10:Report_CRC_Result_Value	1
+../Core/Src/memory_checks.c:110:22:Report_CRC_Progress	1
+../Core/Src/memory_checks.c:116:10:Report_CRC_Result_Value	1
